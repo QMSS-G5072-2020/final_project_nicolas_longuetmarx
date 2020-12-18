@@ -39,7 +39,7 @@ def import_text(num, path):
 
 # get the list of datasets available
 def get_session_list(state):
-    mylink2='https://api.legiscan.com/?key=c394a6d24d2362d97056c55d0c0d0c58&op=getDatasetList&state='+state
+    mylink2='https://api.legiscan.com/?key="+api_key+"&op=getDatasetList&state='+state
     r = requests.get(mylink2)
     json_response=r.json()
     json_response
@@ -49,7 +49,7 @@ def get_session_list(state):
 
     
 def get_bill_list(session_num):
-    mylink2="https://api.legiscan.com/?key=c394a6d24d2362d97056c55d0c0d0c58&op=getMasterList&id="+session_num
+    mylink2="https://api.legiscan.com/?key="+api_key+"&op=getMasterList&id="+session_num
     r = requests.get(mylink2)
     json_response=r.json()
     mydata=pd.DataFrame.from_dict(json_response['masterlist'])
@@ -96,7 +96,6 @@ def classification(data):
         data.loc[data.title.str.contains(value), 'type']=key
         i=i+1
         data.loc[data.title.str.contains(value), 'typenum']=i
-#mylistofcat=[ environment_list,courts_list , pensions_list,local_projects_list,elections_list, banking_list, licensing_list, real_estate_list, bonds_list, expenditures_list 
     # graph de classification
     fig, ax = plt.subplots()
     label=mydico.keys()
